@@ -1,43 +1,46 @@
-import { useForm } from '@tanstack/react-form'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useForm } from "@tanstack/react-form";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/demo/create/animal')({
+export const Route = createFileRoute("/demo/create/animal")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
-      name: '',
-      species: '',
+      name: "",
+      species: "",
       age: 0,
       adopted: false,
     },
     onSubmit: async ({ value }) => {
       try {
-        const res = await fetch('http://localhost:3333/animals', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(value),
-        })
-        const data = await res.json()
-        console.log('Animal créé:', data)
-        form.reset()
-        navigate({ to: '/demo/list/animals' })
+        const res = await fetch(
+          "https://animals-api-ymzhkn-4be2e0-188-245-240-223.traefik.me//animals",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(value),
+          },
+        );
+        const data = await res.json();
+        console.log("Animal créé:", data);
+        form.reset();
+        navigate({ to: "/demo/list/animals" });
       } catch (err) {
-        console.error('Erreur:', err)
+        console.error("Erreur:", err);
       }
     },
-  })
+  });
 
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault()
-        form.handleSubmit()
+        e.preventDefault();
+        form.handleSubmit();
       }}
-      className="p-4 space-y-4 max-w-md mx-auto"
+      className="mx-auto max-w-md space-y-4 p-4"
     >
       {/* Nom */}
       <div>
@@ -47,7 +50,7 @@ function RouteComponent() {
         <form.Field
           name="name"
           validators={{
-            onChange: ({ value }) => (!value ? 'Required' : undefined),
+            onChange: ({ value }) => (!value ? "Required" : undefined),
           }}
           children={(field) => (
             <input
@@ -55,7 +58,7 @@ function RouteComponent() {
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               onBlur={field.handleBlur}
-              className="border px-2 py-1 rounded w-full"
+              className="w-full rounded border px-2 py-1"
             />
           )}
         />
@@ -69,7 +72,7 @@ function RouteComponent() {
         <form.Field
           name="species"
           validators={{
-            onChange: ({ value }) => (!value ? 'Required' : undefined),
+            onChange: ({ value }) => (!value ? "Required" : undefined),
           }}
           children={(field) => (
             <input
@@ -77,7 +80,7 @@ function RouteComponent() {
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               onBlur={field.handleBlur}
-              className="border px-2 py-1 rounded w-full"
+              className="w-full rounded border px-2 py-1"
             />
           )}
         />
@@ -91,7 +94,7 @@ function RouteComponent() {
         <form.Field
           name="age"
           validators={{
-            onChange: ({ value }) => (value < 0 ? 'Must be ≥ 0' : undefined),
+            onChange: ({ value }) => (value < 0 ? "Must be ≥ 0" : undefined),
           }}
           children={(field) => (
             <input
@@ -100,7 +103,7 @@ function RouteComponent() {
               value={field.state.value}
               onChange={(e) => field.handleChange(Number(e.target.value))}
               onBlur={field.handleBlur}
-              className="border px-2 py-1 rounded w-full"
+              className="w-full rounded border px-2 py-1"
             />
           )}
         />
@@ -128,10 +131,10 @@ function RouteComponent() {
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="rounded bg-blue-600 px-4 py-2 text-white"
       >
         Créer
       </button>
     </form>
-  )
+  );
 }
