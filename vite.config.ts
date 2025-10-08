@@ -6,7 +6,6 @@ import { resolve } from "node:path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/front_animals/",
   plugins: [
     tanstackRouter({
       target: "react",
