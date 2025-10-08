@@ -7,6 +7,7 @@ export const Route = createFileRoute("/demo/create/animal")({
 
 function RouteComponent() {
   const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
   const form = useForm({
     defaultValues: {
       name: "",
@@ -17,7 +18,7 @@ function RouteComponent() {
     onSubmit: async ({ value }) => {
       try {
         const res = await fetch(
-          "https://animals-api-ymzhkn-4be2e0-188-245-240-223.traefik.me//animals",
+          `${apiUrl}/animals`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
