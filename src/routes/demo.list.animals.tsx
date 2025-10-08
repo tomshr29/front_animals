@@ -26,7 +26,7 @@ function Example() {
     queryKey: ["animals"],
     queryFn: () =>
       fetch(
-        "https://animals-api-ymzhkn-4be2e0-188-245-240-223.traefik.me/animals",
+        `${apiUrl}/animals`
       ).then((res) => res.json()),
   });
 
