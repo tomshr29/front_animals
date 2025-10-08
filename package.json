@@ -1,5 +1,6 @@
 {
-  "name": ".",
+  "name": "front_animals",
+  "homepage": "https://tomshr29.github.io/front_animals/",
   "private": true,
   "type": "module",
   "scripts": {
