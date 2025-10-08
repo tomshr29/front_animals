@@ -20,6 +20,8 @@ function RouteComponent() {
 }
 
 function Example() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const { isPending, error, data } = useQuery({
     queryKey: ["animals"],
     queryFn: () =>
@@ -31,6 +33,21 @@ function Example() {
   if (isPending) return "Loading...";
 
   if (error) return "An error has occurrend: " + error.message;
+
+  if (!data || data.length === 0)
+    return (
+      <div className="p-6 text-center text-gray-500">
+        Aucun animal pour le moment 🐾
+        <div className="mt-4">
+          <Link
+            to="/demo/create/animal"
+            className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-blue-700"
+          >
+            Ajouter un animal
+          </Link>
+        </div>
+      </div>
+    );
 
   return (
     <div>
